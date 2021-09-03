@@ -7,6 +7,8 @@ import com.inventory.persistence.InventoryDaoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class InventoryService implements InventoryServiceInterface {
@@ -30,23 +32,40 @@ public class InventoryService implements InventoryServiceInterface {
     }
 
     @Override
-    public InventoryItem getInventoryItemById(Long id) {
-        return inventoryDoa.getInventoryItemById(id);
+    public Optional<InventoryItem> getInventoryItemById(Long id) {
+        return inventoryDoa.findById(id);
     }
 
     @Override
-    public InventoryItem deleteInventoryItemById(Long id) {
-        InventoryItem inventoryItem = getInventoryItemById(id);
+    public InventoryItem getInventoryItemByProductCodeForOrder(String productCode) {
+        Optional<InventoryItem> inventoryItem = inventoryDoa.getInventoryItemByProductCode(productCode);
+        return inventoryItem.orElse(null);
+    }
+
+    @Override
+    public Optional<InventoryItem> getInventoryItemByProductCode(String productCode) {
+        return inventoryDoa.getInventoryItemByProductCode(productCode);
+    }
+
+    @Override
+    public void deleteInventoryItem(InventoryItem inventoryItem) {
         inventoryDoa.delete(inventoryItem);
-        return inventoryItem;
     }
 
 
     @Override
-    public InventoryItem updateInventoryItemQuantityByProductCode(String productCode, int quantity) {
+    public Optional<InventoryItem> updateInventoryItemQuantityByProductCode(String productCode, int quantity) {
         if(inventoryDoa.updateInventoryItemQuantityByProductCode(productCode,quantity) > 0){
             return inventoryDoa.getInventoryItemByProductCode(productCode);
         }
-        return null;
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<InventoryItem> updateInventoryItemQuantity(InventoryItem inventoryItem) {
+        if(inventoryDoa.updateInventoryItemQuantity(inventoryItem.getProductCode(), inventoryItem.getAvailableQuantity()) > 0){
+            return inventoryDoa.getInventoryItemByProductCode(inventoryItem.getProductCode());
+        }
+        return Optional.empty();
     }
 }
