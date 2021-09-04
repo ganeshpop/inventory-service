@@ -67,7 +67,6 @@ public class InventoryResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{productCode}/{quantity}", produces = "Application/json")
     InventoryItem updateInventoryItemQuantityByProductCode(@PathVariable("productCode") String productCode, @PathVariable("quantity") Integer quantity) {
         Optional<InventoryItem> inventoryItem = inventoryService.updateInventoryItemQuantityByProductCode(productCode, quantity);
         if (!inventoryItem.isPresent()) {
