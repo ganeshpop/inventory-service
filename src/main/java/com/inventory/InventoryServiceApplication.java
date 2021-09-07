@@ -25,15 +25,15 @@ public class InventoryServiceApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        inventoryService.insertInventoryItem(new InventoryItem("P1001",2));
+    public void run(String... args)  {
+        inventoryService.insertInventoryItem(new InventoryItem("P1001",5));
         inventoryService.insertInventoryItem(new InventoryItem("P1002",6));
-        inventoryService.insertInventoryItem(new InventoryItem("P1003",4));
-        inventoryService.insertInventoryItem(new InventoryItem("P1004",3));
-        inventoryService.insertInventoryItem(new InventoryItem("P1005",5));
-        inventoryService.insertInventoryItem(new InventoryItem("P1006",2));
-        inventoryService.insertInventoryItem(new InventoryItem("P1007",1));
-        inventoryService.insertInventoryItem(new InventoryItem("P1008",3));
+        inventoryService.insertInventoryItem(new InventoryItem("P1003",5));
+        inventoryService.insertInventoryItem(new InventoryItem("P1004",7));
+        inventoryService.insertInventoryItem(new InventoryItem("P1005",4));
+        inventoryService.insertInventoryItem(new InventoryItem("P1006",6));
+        inventoryService.insertInventoryItem(new InventoryItem("P1007",5));
+        inventoryService.insertInventoryItem(new InventoryItem("P1008",4));
 
     }
 }
